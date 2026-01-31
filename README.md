@@ -1,8 +1,8 @@
 <div align="center">
 
-![GRAB Logo](https://vahiiiid.github.io/go-rest-api-docs/images/logo.png)
+![TRIIIO Logo](https://www.triiio.com.br/wp-content/uploads/2018/12/logo-triiiio-site-1.jpg)
 
-# Go REST API Boilerplate
+# TRIIIO Backend using Go GRAB Boilerplate
 
 Production-ready in 90 seconds. No headaches, just clean code.
 
