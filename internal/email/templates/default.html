@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Subject}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4CAF50;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #4CAF50;
+            margin: 0;
+            font-size: 28px;
+        }
+        .content {
+            padding: 20px 0;
+        }
+        .content p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #4CAF50;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{.AppName}}</h1>
+        </div>
+        
+        <div class="content">
+            {{if .Title}}
+            <h2>{{.Title}}</h2>
+            {{end}}
+            
+            {{if .Message}}
+            <p>{{.Message}}</p>
+            {{end}}
+            
+            {{if .Body}}
+            {{.Body}}
+            {{end}}
+            
+            {{if .ButtonText}}
+            <div style="text-align: center;">
+                <a href="{{.ButtonURL}}" class="button">{{.ButtonText}}</a>
+            </div>
+            {{end}}
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {{.Year}} {{.AppName}}. Todos os direitos reservados.</p>
+            {{if .UnsubscribeURL}}
+            <p><a href="{{.UnsubscribeURL}}" style="color: #777;">Cancelar inscrição</a></p>
+            {{end}}
+        </div>
+    </div>
+</body>
+</html>

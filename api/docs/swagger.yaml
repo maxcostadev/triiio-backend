@@ -1,0 +1,2830 @@
+basePath: /
+definitions:
+  auth.RefreshTokenRequest:
+    properties:
+      refresh_token:
+        type: string
+    required:
+    - refresh_token
+    type: object
+  auth.TokenPairResponse:
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+    type: object
+  email.EmailResponse:
+    properties:
+      message:
+        type: string
+      message_id:
+        type: string
+      sent_to:
+        items:
+          type: string
+        type: array
+      success:
+        type: boolean
+    type: object
+  email.SendEmailRequest:
+    properties:
+      bcc:
+        items:
+          type: string
+        type: array
+      body:
+        minLength: 1
+        type: string
+      cc:
+        items:
+          type: string
+        type: array
+      is_html:
+        type: boolean
+      subject:
+        maxLength: 500
+        minLength: 1
+        type: string
+      to:
+        items:
+          type: string
+        minItems: 1
+        type: array
+    required:
+    - body
+    - subject
+    - to
+    type: object
+  email.SendTemplateEmailRequest:
+    properties:
+      bcc:
+        items:
+          type: string
+        type: array
+      cc:
+        items:
+          type: string
+        type: array
+      subject:
+        maxLength: 500
+        minLength: 1
+        type: string
+      template_data:
+        additionalProperties: true
+        type: object
+      template_name:
+        enum:
+        - default
+        - welcome
+        - notification
+        type: string
+      to:
+        items:
+          type: string
+        minItems: 1
+        type: array
+    required:
+    - subject
+    - template_name
+    - to
+    type: object
+  errors.ErrorInfo:
+    properties:
+      code:
+        type: string
+      details: {}
+      message:
+        type: string
+      path:
+        type: string
+      request_id:
+        type: string
+      retry_after:
+        type: integer
+      timestamp:
+        type: string
+    type: object
+  errors.Links:
+    properties:
+      first:
+        type: string
+      last:
+        type: string
+      next:
+        type: string
+      prev:
+        type: string
+      self:
+        type: string
+    type: object
+  errors.Meta:
+    properties:
+      links:
+        $ref: '#/definitions/errors.Links'
+      page:
+        type: integer
+      per_page:
+        type: integer
+      request_id:
+        type: string
+      timestamp:
+        type: string
+      total:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
+  errors.Response:
+    properties:
+      data: {}
+      error:
+        $ref: '#/definitions/errors.ErrorInfo'
+      meta:
+        $ref: '#/definitions/errors.Meta'
+      success:
+        type: boolean
+    type: object
+  health.CheckResult:
+    properties:
+      details: {}
+      message:
+        type: string
+      response_time:
+        type: string
+      status:
+        $ref: '#/definitions/health.CheckStatus'
+    type: object
+  health.CheckStatus:
+    enum:
+    - pass
+    - warn
+    - fail
+    type: string
+    x-enum-varnames:
+    - CheckPass
+    - CheckWarn
+    - CheckFail
+  health.HealthResponse:
+    properties:
+      checks:
+        additionalProperties:
+          $ref: '#/definitions/health.CheckResult'
+        type: object
+      environment:
+        type: string
+      status:
+        $ref: '#/definitions/health.HealthStatus'
+      timestamp:
+        type: string
+      uptime:
+        type: string
+      version:
+        type: string
+    type: object
+  health.HealthStatus:
+    enum:
+    - healthy
+    - degraded
+    - unhealthy
+    type: string
+    x-enum-varnames:
+    - StatusHealthy
+    - StatusDegraded
+    - StatusUnhealthy
+  imoveis.Anexo:
+    properties:
+      canPublish:
+        type: boolean
+      created_at:
+        type: string
+      empreendimento_id:
+        type: integer
+      id:
+        type: integer
+      image:
+        type: boolean
+      imovel_id:
+        type: integer
+      isExternalUrl:
+        type: boolean
+      nome:
+        type: string
+      path:
+        type: string
+      planta_id:
+        type: integer
+      tamanho:
+        type: integer
+      tipo:
+        type: string
+      updated_at:
+        type: string
+      url:
+        type: string
+      video:
+        type: boolean
+    type: object
+  imoveis.AnexoResponse:
+    properties:
+      canPublish:
+        type: boolean
+      created_at:
+        type: string
+      id:
+        type: integer
+      image:
+        type: boolean
+      isExternalUrl:
+        type: boolean
+      nome:
+        type: string
+      path:
+        type: string
+      tamanho:
+        type: integer
+      tipo:
+        type: string
+      updated_at:
+        type: string
+      url:
+        type: string
+      video:
+        type: boolean
+    type: object
+  imoveis.CaracteristicaResponse:
+    properties:
+      categoria_id:
+        type: integer
+      categoria_nome:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  imoveis.CorretorPrincipalResponse:
+    properties:
+      bairrosAtuacao:
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      foto:
+        $ref: '#/definitions/imoveis.AnexoResponse'
+      id:
+        type: integer
+      idiomas:
+        items:
+          type: string
+        type: array
+      nome:
+        type: string
+      organizacao:
+        $ref: '#/definitions/imoveis.OrganizacaoResponse'
+      whatsapp:
+        type: string
+    type: object
+  imoveis.CreateImovelRequest:
+    properties:
+      caracteristicas:
+        items:
+          type: integer
+        type: array
+      codigo:
+        maxLength: 50
+        minLength: 1
+        type: string
+      condominio:
+        minimum: 0
+        type: number
+      corretor_principal_id:
+        type: integer
+      descricao:
+        maxLength: 5000
+        minLength: 10
+        type: string
+      empreendimento_id:
+        type: integer
+      endereco_id:
+        description: Relations
+        type: integer
+      finalidade:
+        enum:
+        - RESIDENCIAL
+        - COMERCIAL
+        - MISTO
+        type: string
+      id_integracao:
+        type: string
+      inscricaoIPTU:
+        maxLength: 50
+        type: string
+      iptu:
+        minimum: 0
+        type: number
+      metragem:
+        type: number
+      numAndar:
+        type: integer
+      numBanheiros:
+        minimum: 0
+        type: integer
+      numQuartos:
+        minimum: 0
+        type: integer
+      numSuites:
+        minimum: 0
+        type: integer
+      numVagas:
+        minimum: 0
+        type: integer
+      objetivo:
+        enum:
+        - VENDER
+        - ALUGAR
+        type: string
+      pacote_id:
+        type: integer
+      planta_id:
+        type: integer
+      preco_aluguel_id:
+        type: integer
+      preco_venda_id:
+        type: integer
+      tipo:
+        enum:
+        - APARTAMENTO
+        - CASA
+        - COMERCIAL
+        - SALA_COMERCIAL
+        - TERRENO
+        - GALPAO
+        type: string
+      titulo:
+        maxLength: 255
+        minLength: 3
+        type: string
+      unidade:
+        maxLength: 20
+        type: string
+    required:
+    - codigo
+    - descricao
+    - endereco_id
+    - finalidade
+    - metragem
+    - objetivo
+    - tipo
+    - titulo
+    type: object
+  imoveis.EmpreendimentoResponse:
+    properties:
+      anexos:
+        items:
+          $ref: '#/definitions/imoveis.AnexoResponse'
+        type: array
+      caracteristicas:
+        items:
+          $ref: '#/definitions/imoveis.CaracteristicaResponse'
+        type: array
+      created_at:
+        type: string
+      data_entrega:
+        type: string
+      descricao:
+        type: string
+      endereco:
+        $ref: '#/definitions/imoveis.EnderecoResponse'
+      etapa_lancamento:
+        type: string
+      finalidade:
+        type: string
+      id:
+        type: integer
+      localizacao:
+        type: string
+      plantas:
+        items:
+          $ref: '#/definitions/imoveis.PlantaResponse'
+        type: array
+      status:
+        type: string
+      tipo:
+        type: string
+      titulo:
+        type: string
+      torres:
+        items:
+          $ref: '#/definitions/imoveis.TorresResponse'
+        type: array
+      updated_at:
+        type: string
+    type: object
+  imoveis.EnderecoResponse:
+    properties:
+      bairro:
+        type: string
+      cep:
+        type: string
+      cidade:
+        type: string
+      estado:
+        type: string
+      id:
+        type: integer
+      latitude:
+        type: number
+      longitude:
+        type: number
+      numero:
+        type: integer
+      rua:
+        type: string
+    type: object
+  imoveis.ImovelListResponse:
+    properties:
+      hasNext:
+        type: boolean
+      hasPrev:
+        type: boolean
+      limit:
+        type: integer
+      page:
+        type: integer
+      pages:
+        type: integer
+      results:
+        items:
+          $ref: '#/definitions/imoveis.ImovelResponse'
+        type: array
+      total:
+        type: integer
+    type: object
+  imoveis.ImovelResponse:
+    properties:
+      anexos:
+        items:
+          $ref: '#/definitions/imoveis.AnexoResponse'
+        type: array
+      caracteristicas:
+        items:
+          $ref: '#/definitions/imoveis.CaracteristicaResponse'
+        type: array
+      closed:
+        type: boolean
+      codigo:
+        type: string
+      condominio:
+        type: number
+      corretorPrincipal:
+        $ref: '#/definitions/imoveis.CorretorPrincipalResponse'
+      created_at:
+        type: string
+      descricao:
+        type: string
+      empreendimento:
+        $ref: '#/definitions/imoveis.EmpreendimentoResponse'
+      endereco:
+        allOf:
+        - $ref: '#/definitions/imoveis.EnderecoResponse'
+        description: Relations
+      finalidade:
+        type: string
+      id:
+        type: integer
+      id_integracao:
+        type: string
+      inscricaoIPTU:
+        type: string
+      iptu:
+        type: number
+      metragem:
+        type: number
+      numAndar:
+        type: integer
+      numBanheiros:
+        type: integer
+      numQuartos:
+        type: integer
+      numSuites:
+        type: integer
+      numVagas:
+        type: integer
+      objetivo:
+        type: string
+      pacote:
+        $ref: '#/definitions/imoveis.PacoteResponse'
+      planta:
+        $ref: '#/definitions/imoveis.PlantaResponse'
+      precoAluguel:
+        $ref: '#/definitions/imoveis.PrecoAluguelResponse'
+      precoVenda:
+        $ref: '#/definitions/imoveis.PrecoVendaResponse'
+      published:
+        type: boolean
+      seqCodigo:
+        type: integer
+      status:
+        description: Metadata
+        type: string
+      tipo:
+        type: string
+      titulo:
+        type: string
+      unidade:
+        type: string
+      updated_at:
+        type: string
+      visualizacoes:
+        type: integer
+    type: object
+  imoveis.OrganizacaoResponse:
+    properties:
+      id:
+        type: integer
+      nome:
+        type: string
+      perfil:
+        type: string
+    type: object
+  imoveis.PacoteResponse:
+    properties:
+      created_at:
+        type: string
+      descricao:
+        type: string
+      em_destaque:
+        type: boolean
+      exclusivo:
+        type: boolean
+      id:
+        type: integer
+      titulo:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  imoveis.PlantaResponse:
+    properties:
+      anexos:
+        items:
+          $ref: '#/definitions/imoveis.AnexoResponse'
+        type: array
+      created_at:
+        type: string
+      id:
+        type: integer
+      metragem:
+        type: number
+      nome:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  imoveis.PrecoAluguelResponse:
+    properties:
+      aceitaFiador:
+        type: boolean
+      ativo:
+        type: boolean
+      created_at:
+        type: string
+      id:
+        type: integer
+      preco:
+        type: number
+      updated_at:
+        type: string
+    type: object
+  imoveis.PrecoVendaResponse:
+    properties:
+      aceitaCartaDeCredito:
+        type: boolean
+      aceitaFGTS:
+        type: boolean
+      aceitaFinanciamentoBancario:
+        type: boolean
+      aceitaFinanciamentoDireto:
+        type: boolean
+      aceitaPermuta:
+        type: boolean
+      ativo:
+        type: boolean
+      created_at:
+        type: string
+      id:
+        type: integer
+      pacote_descricao:
+        type: string
+      pacote_em_destaque:
+        type: boolean
+      pacote_exclusivo:
+        type: boolean
+      pacote_titulo:
+        type: string
+      preco:
+        type: number
+      updated_at:
+        type: string
+    type: object
+  imoveis.TorresResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      nome:
+        type: string
+      totalColunas:
+        type: integer
+      totalElevadores:
+        type: integer
+      totalPavimentos:
+        type: integer
+      totalUnidades:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  imoveis.UpdateImovelRequest:
+    properties:
+      caracteristicas:
+        items:
+          type: integer
+        type: array
+      closed:
+        type: boolean
+      codigo:
+        maxLength: 50
+        minLength: 1
+        type: string
+      condominio:
+        minimum: 0
+        type: number
+      corretor_principal_id:
+        type: integer
+      descricao:
+        maxLength: 5000
+        minLength: 10
+        type: string
+      empreendimento_id:
+        type: integer
+      endereco_id:
+        description: Relations
+        type: integer
+      finalidade:
+        enum:
+        - RESIDENCIAL
+        - COMERCIAL
+        - MISTO
+        type: string
+      inscricaoIPTU:
+        maxLength: 50
+        type: string
+      iptu:
+        minimum: 0
+        type: number
+      metragem:
+        type: number
+      numAndar:
+        type: integer
+      numBanheiros:
+        minimum: 0
+        type: integer
+      numQuartos:
+        minimum: 0
+        type: integer
+      numSuites:
+        minimum: 0
+        type: integer
+      numVagas:
+        minimum: 0
+        type: integer
+      objetivo:
+        enum:
+        - VENDER
+        - ALUGAR
+        type: string
+      pacote_id:
+        type: integer
+      planta_id:
+        type: integer
+      preco_aluguel_id:
+        type: integer
+      preco_venda_id:
+        type: integer
+      published:
+        type: boolean
+      status:
+        enum:
+        - PUBLICADO
+        - EM_EDICAO
+        - ARQUIVADO
+        type: string
+      tipo:
+        enum:
+        - APARTAMENTO
+        - CASA
+        - COMERCIAL
+        - SALA_COMERCIAL
+        - TERRENO
+        - GALPAO
+        type: string
+      titulo:
+        maxLength: 255
+        minLength: 3
+        type: string
+      unidade:
+        maxLength: 20
+        type: string
+    type: object
+  sliders.CreateSliderItemRequest:
+    properties:
+      content:
+        maxLength: 1000
+        type: string
+      image_url:
+        maxLength: 2048
+        minLength: 1
+        type: string
+      link_url:
+        maxLength: 2048
+        type: string
+      order:
+        minimum: 0
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+      titulo:
+        maxLength: 255
+        type: string
+    required:
+    - image_url
+    - order
+    type: object
+  sliders.CreateSliderRequest:
+    properties:
+      items:
+        items:
+          $ref: '#/definitions/sliders.CreateSliderItemRequest'
+        type: array
+      location:
+        maxLength: 255
+        minLength: 1
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      type:
+        maximum: 2
+        minimum: 0
+        type: integer
+    required:
+    - location
+    - name
+    - type
+    type: object
+  sliders.SliderItemResponse:
+    properties:
+      content:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      image_url:
+        type: string
+      link_url:
+        type: string
+      order:
+        type: integer
+      slider_id:
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+      titulo:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  sliders.SliderResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/sliders.SliderItemResponse'
+        type: array
+      location:
+        type: string
+      name:
+        type: string
+      type:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  sliders.UpdateSliderItemRequest:
+    properties:
+      content:
+        maxLength: 1000
+        type: string
+      image_url:
+        maxLength: 2048
+        minLength: 1
+        type: string
+      link_url:
+        maxLength: 2048
+        type: string
+      order:
+        minimum: 0
+        type: integer
+      tags:
+        items:
+          type: string
+        type: array
+      titulo:
+        maxLength: 255
+        type: string
+    type: object
+  sliders.UpdateSliderRequest:
+    properties:
+      location:
+        maxLength: 255
+        minLength: 1
+        type: string
+      name:
+        maxLength: 200
+        minLength: 1
+        type: string
+      type:
+        maximum: 2
+        minimum: 0
+        type: integer
+    type: object
+  user.AuthResponse:
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: integer
+      refresh_token:
+        type: string
+      token_type:
+        type: string
+      user:
+        $ref: '#/definitions/user.UserResponse'
+    type: object
+  user.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  user.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  user.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 100
+        minLength: 2
+        type: string
+    type: object
+  user.UserListResponse:
+    properties:
+      page:
+        type: integer
+      per_page:
+        type: integer
+      total:
+        type: integer
+      total_pages:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/user.UserResponse'
+        type: array
+    type: object
+  user.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      roles:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: A production-ready REST API boilerplate in Go with JWT authentication
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: TRIIIO API Boilerplate
+  version: "1.0"
+paths:
+  /api/v1/admin/users:
+    get:
+      consumes:
+      - application/json
+      description: Get paginated list of all users with optional filtering (requires
+        admin role)
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: Items per page (max 100)
+        in: query
+        name: per_page
+        type: integer
+      - description: Filter by role (user or admin)
+        in: query
+        name: role
+        type: string
+      - description: Search by name or email
+        in: query
+        name: search
+        type: string
+      - default: created_at
+        description: Sort by field (created_at, updated_at, name, email)
+        in: query
+        name: sort
+        type: string
+      - default: desc
+        description: Sort order (asc or desc)
+        in: query
+        name: order
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with paginated user list
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserListResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Invalid parameters
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Admin access required
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to list users
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: List all users (Admin only)
+      tags:
+      - admin
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with email and password, returns access and refresh
+        tokens
+      parameters:
+      - description: Login request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with user data and tokens
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.AuthResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Validation error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Invalid email or password
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to authenticate user or generate token
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Login user
+      tags:
+      - auth
+  /api/v1/auth/logout:
+    post:
+      consumes:
+      - application/json
+      description: Revoke refresh token and invalidate user session
+      parameters:
+      - description: Refresh token to revoke
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully logged out
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  type: object
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Validation error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Token does not belong to user
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to logout
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Logout user
+      tags:
+      - auth
+  /api/v1/auth/me:
+    get:
+      consumes:
+      - application/json
+      description: Get the currently authenticated user's information with roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with current user data
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to get user
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - auth
+  /api/v1/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Exchange refresh token for new access and refresh tokens with automatic
+        rotation
+      parameters:
+      - description: Refresh token request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/auth.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with new token pair
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/auth.TokenPairResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Validation error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Invalid or expired refresh token
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Token reuse detected - all tokens revoked
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to refresh token
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Refresh access token
+      tags:
+      - auth
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user with name, email and password, returns access
+        and refresh tokens
+      parameters:
+      - description: Registration request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with user data and tokens
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.AuthResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Validation error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "409":
+          description: Email already exists
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to register user or generate token
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /api/v1/emails/send:
+    post:
+      consumes:
+      - application/json
+      description: Send a simple email to one or more recipients
+      parameters:
+      - description: Email data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/email.SendEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/email.EmailResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Send email
+      tags:
+      - emails
+  /api/v1/emails/send-template:
+    post:
+      consumes:
+      - application/json
+      description: Send an email using a predefined HTML template
+      parameters:
+      - description: Template email data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/email.SendTemplateEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/email.EmailResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "401":
+          description: Unauthorized
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Send template email
+      tags:
+      - emails
+  /api/v1/imoveis:
+    get:
+      consumes:
+      - application/json
+      description: Get paginated list of properties with filters
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: limit
+        type: integer
+      - description: Property code (partial match)
+        in: query
+        name: codigo
+        type: string
+      - description: Property type (APARTAMENTO, CASA, COMERCIAL, SALA_COMERCIAL,
+          TERRENO, GALPAO)
+        in: query
+        name: tipo
+        type: string
+      - description: Property objective (VENDER, ALUGAR)
+        in: query
+        name: objetivo
+        type: string
+      - description: Property purpose (RESIDENCIAL, COMERCIAL, MISTO)
+        in: query
+        name: finalidade
+        type: string
+      - description: Property status (PUBLICADO, EM_EDICAO, ARQUIVADO)
+        in: query
+        name: status
+        type: string
+      - description: Published status
+        in: query
+        name: published
+        type: boolean
+      - description: Minimum price
+        in: query
+        name: min_preco
+        type: number
+      - description: Maximum price
+        in: query
+        name: max_preco
+        type: number
+      - description: Minimum square meters
+        in: query
+        name: min_metragem
+        type: number
+      - description: Maximum square meters
+        in: query
+        name: max_metragem
+        type: number
+      - description: Street name (partial match)
+        in: query
+        name: rua
+        type: string
+      - description: City name (partial match)
+        in: query
+        name: cidade
+        type: string
+      - description: Neighborhood name (partial match)
+        in: query
+        name: bairro
+        type: string
+      - description: Minimum number of bedrooms
+        in: query
+        name: num_quartos
+        type: integer
+      - description: Minimum number of bathrooms
+        in: query
+        name: num_banheiros
+        type: integer
+      - description: Minimum number of parking spaces
+        in: query
+        name: num_garagens
+        type: integer
+      - description: Development ID
+        in: query
+        name: empreendimento_id
+        type: integer
+      - default: created_at
+        description: Sort field (created_at, updated_at, preco, titulo, metragem)
+        in: query
+        name: sort
+        type: string
+      - default: desc
+        description: Sort order (asc, desc)
+        in: query
+        name: order
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/imoveis.ImovelListResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: List properties
+      tags:
+      - imoveis
+    post:
+      consumes:
+      - application/json
+      description: Create a new property
+      parameters:
+      - description: Property creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/imoveis.CreateImovelRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/imoveis.ImovelResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "409":
+          description: Conflict
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Create a new property
+      tags:
+      - imoveis
+  /api/v1/imoveis/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Soft delete a property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Delete a property
+      tags:
+      - imoveis
+    get:
+      consumes:
+      - application/json
+      description: Get a property by its ID
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/imoveis.ImovelResponse'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get property by ID
+      tags:
+      - imoveis
+    put:
+      consumes:
+      - application/json
+      description: Update an existing property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Property update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/imoveis.UpdateImovelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/imoveis.ImovelResponse'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Update a property
+      tags:
+      - imoveis
+  /api/v1/imoveis/{id}/anexos:
+    get:
+      consumes:
+      - application/json
+      description: Get all attachments for a property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/imoveis.AnexoResponse'
+                  type: array
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get property attachments
+      tags:
+      - imoveis
+    post:
+      consumes:
+      - application/json
+      description: Add an image or document attachment to a property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Attachment data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/imoveis.Anexo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Add attachment to property
+      tags:
+      - imoveis
+  /api/v1/imoveis/{id}/caracteristicas:
+    get:
+      consumes:
+      - application/json
+      description: Get all characteristics for a property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/imoveis.CaracteristicaResponse'
+                  type: array
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get property characteristics
+      tags:
+      - imoveis
+    post:
+      consumes:
+      - application/json
+      description: Add multiple characteristics to a property
+      parameters:
+      - description: Property ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Characteristics IDs
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties:
+            items:
+              type: integer
+            type: array
+          type: object
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Add characteristics to property
+      tags:
+      - imoveis
+  /api/v1/imoveis/import:
+    post:
+      consumes:
+      - application/json
+      description: Import all published properties from dev-api-backend.pi8.com.br.
+        Uses upsert logic - creates new properties and updates existing ones based
+        on id_integracao mapping. Existing properties are detected via id_integracao
+        field and updated with latest data. Attachments are deduplicated by URL.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Import completed with statistics (created, updated, failed
+            counts)
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Import properties from external API
+      tags:
+      - imoveis
+  /api/v1/sliders:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve paginated list of sliders
+      parameters:
+      - default: 1
+        description: Page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: Items per page
+        in: query
+        name: per_page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/sliders.SliderResponse'
+                  type: array
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: List sliders
+      tags:
+      - sliders
+    post:
+      consumes:
+      - application/json
+      description: Create a new slider with items
+      parameters:
+      - description: Slider creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sliders.CreateSliderRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "409":
+          description: Conflict
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Create slider
+      tags:
+      - sliders
+  /api/v1/sliders/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a slider and all its items
+      parameters:
+      - description: Slider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Delete slider
+      tags:
+      - sliders
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a slider and its items by ID
+      parameters:
+      - description: Slider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderResponse'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get slider by ID
+      tags:
+      - sliders
+    put:
+      consumes:
+      - application/json
+      description: Update an existing slider
+      parameters:
+      - description: Slider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Slider update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sliders.UpdateSliderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "409":
+          description: Conflict
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Update slider
+      tags:
+      - sliders
+  /api/v1/sliders/{slider_id}/items:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all items for a specific slider
+      parameters:
+      - description: Slider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/sliders.SliderItemResponse'
+                  type: array
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get slider items
+      tags:
+      - sliders
+    post:
+      consumes:
+      - application/json
+      description: Add a new item to an existing slider
+      parameters:
+      - description: Slider ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Slider item creation request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sliders.CreateSliderItemRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderItemResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Add slider item
+      tags:
+      - sliders
+  /api/v1/sliders/items/{item_id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a slider item
+      parameters:
+      - description: Slider item ID
+        in: path
+        name: item_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Delete slider item
+      tags:
+      - sliders
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a specific slider item by ID
+      parameters:
+      - description: Slider item ID
+        in: path
+        name: item_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderItemResponse'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get slider item
+      tags:
+      - sliders
+    put:
+      consumes:
+      - application/json
+      description: Update an existing slider item
+      parameters:
+      - description: Slider item ID
+        in: path
+        name: item_id
+        required: true
+        type: integer
+      - description: Slider item update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/sliders.UpdateSliderItemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderItemResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Update slider item
+      tags:
+      - sliders
+  /api/v1/sliders/location:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a slider and its items by location
+      parameters:
+      - description: Slider location
+        in: query
+        name: location
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/sliders.SliderResponse'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      summary: Get slider by location
+      tags:
+      - sliders
+  /api/v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user by ID (requires authentication)
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Invalid user ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Forbidden user ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: User not found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "429":
+          description: Rate limit exceeded
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to delete user
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Delete user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Get a user by their ID (requires authentication)
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with user data
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Invalid user ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Forbidden user ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: User not found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "429":
+          description: Rate limit exceeded
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to get user
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Get user by ID
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user information (requires authentication)
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Success response with updated user data
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/user.UserResponse'
+                success:
+                  type: boolean
+              type: object
+        "400":
+          description: Invalid user ID or Validation error
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "403":
+          description: Forbidden user ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "404":
+          description: User not found
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "409":
+          description: Email already exists
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "429":
+          description: Rate limit exceeded
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Failed to update user
+          schema:
+            allOf:
+            - $ref: '#/definitions/errors.Response'
+            - properties:
+                error:
+                  $ref: '#/definitions/errors.ErrorInfo'
+                success:
+                  type: boolean
+              type: object
+      security:
+      - BearerAuth: []
+      summary: Update user
+      tags:
+      - users
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Check if the application is running
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.HealthResponse'
+      summary: Basic health check
+      tags:
+      - Health
+  /health/live:
+    get:
+      consumes:
+      - application/json
+      description: Check if the application is alive (not deadlocked)
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health.HealthResponse'
+      summary: Liveness probe
+      tags:
+      - Health
+  /health/ready:
+    get:
+      consumes:
+      - application/json
+      description: Check if the application and its dependencies are ready to serve
+        traffic
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Service is ready
+          schema:
+            $ref: '#/definitions/health.HealthResponse'
+        "503":
+          description: Service is not ready
+          schema:
+            $ref: '#/definitions/health.HealthResponse'
+      summary: Readiness probe
+      tags:
+      - Health
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and JWT token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

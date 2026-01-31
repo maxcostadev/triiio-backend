@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificação</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #2196F3;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .notification-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .notification-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .notification-box h2 {
+            margin-top: 0;
+            color: #1976D2;
+            font-size: 20px;
+        }
+        .notification-box p {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+        .info-grid {
+            display: table;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .info-row {
+            display: table-row;
+        }
+        .info-label {
+            display: table-cell;
+            padding: 8px;
+            font-weight: bold;
+            color: #666;
+            width: 30%;
+        }
+        .info-value {
+            display: table-cell;
+            padding: 8px;
+            color: #333;
+        }
+        .alert-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .alert-box.warning {
+            background-color: #fff3cd;
+            border-color: #ffc107;
+        }
+        .alert-box.success {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .alert-box.error {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #2196F3;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #1976D2;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+        .timestamp {
+            font-size: 13px;
+            color: #999;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="notification-icon">
+                {{if eq .Type "warning"}}⚠️
+                {{else if eq .Type "success"}}✅
+                {{else if eq .Type "error"}}❌
+                {{else}}🔔{{end}}
+            </div>
+            <h1>{{.AppName}}</h1>
+        </div>
+        
+        <div class="content">
+            <div class="notification-box">
+                {{if .Title}}
+                <h2>{{.Title}}</h2>
+                {{else}}
+                <h2>Nova Notificação</h2>
+                {{end}}
+                
+                {{if .Message}}
+                <p>{{.Message}}</p>
+                {{end}}
+            </div>
+            
+            {{if .AlertMessage}}
+            <div class="alert-box {{.Type}}">
+                {{.AlertMessage}}
+            </div>
+            {{end}}
+            
+            {{if .Details}}
+            <div class="info-grid">
+                {{range $key, $value := .Details}}
+                <div class="info-row">
+                    <div class="info-label">{{$key}}:</div>
+                    <div class="info-value">{{$value}}</div>
+                </div>
+                {{end}}
+            </div>
+            {{end}}
+            
+            {{if .Body}}
+            <div style="margin: 20px 0;">
+                {{.Body}}
+            </div>
+            {{end}}
+            
+            {{if .ButtonText}}
+            <div style="text-align: center;">
+                <a href="{{.ButtonURL}}" class="button">{{.ButtonText}}</a>
+            </div>
+            {{end}}
+            
+            {{if .Timestamp}}
+            <p class="timestamp">Data/Hora: {{.Timestamp}}</p>
+            {{end}}
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {{.Year}} {{.AppName}}. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-size: 11px;">
+                Esta é uma mensagem automática. Por favor, não responda a este email.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

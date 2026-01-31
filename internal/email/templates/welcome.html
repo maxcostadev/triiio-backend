@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .banner h1 {
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .banner p {
+            margin: 10px 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .content h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        .content p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .welcome-message {
+            background-color: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .button {
+            display: inline-block;
+            padding: 14px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 20px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .features {
+            display: table;
+            width: 100%;
+            margin: 30px 0;
+        }
+        .feature {
+            display: table-row;
+        }
+        .feature-icon {
+            display: table-cell;
+            width: 40px;
+            padding: 10px;
+            vertical-align: top;
+        }
+        .feature-content {
+            display: table-cell;
+            padding: 10px;
+            vertical-align: top;
+        }
+        .feature-content h3 {
+            margin: 0 0 5px;
+            color: #667eea;
+        }
+        .footer {
+            background-color: #f8f9ff;
+            padding: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <h1>🎉 Bem-vindo ao {{.AppName}}!</h1>
+            <p>Estamos felizes em ter você conosco</p>
+        </div>
+        
+        <div class="content">
+            <div class="welcome-message">
+                <p><strong>Olá {{.UserName}},</strong></p>
+                <p>Obrigado por se cadastrar! Sua conta foi criada com sucesso e você já pode começar a aproveitar todos os recursos da nossa plataforma.</p>
+            </div>
+            
+            {{if .Message}}
+            <p>{{.Message}}</p>
+            {{end}}
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">✅</div>
+                    <div class="feature-content">
+                        <h3>Acesso Completo</h3>
+                        <p>Você tem acesso a todas as funcionalidades disponíveis.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-content">
+                        <h3>Segurança</h3>
+                        <p>Seus dados estão protegidos com criptografia de ponta.</p>
+                    </div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <div class="feature-content">
+                        <h3>Suporte 24/7</h3>
+                        <p>Nossa equipe está sempre disponível para ajudar.</p>
+                    </div>
+                </div>
+            </div>
+            
+            {{if .ButtonText}}
+            <div style="text-align: center;">
+                <a href="{{.ButtonURL}}" class="button">{{.ButtonText}}</a>
+            </div>
+            {{end}}
+            
+            <p style="margin-top: 30px; font-size: 14px; color: #666;">
+                Se você tiver alguma dúvida, não hesite em entrar em contato conosco.
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; {{.Year}} {{.AppName}}. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px;">
+                Este email foi enviado para {{.UserEmail}}.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
