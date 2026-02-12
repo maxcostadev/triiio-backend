@@ -2,162 +2,166 @@
 
 ![TRIIIO Logo](https://www.triiio.com.br/wp-content/uploads/2018/12/logo-triiiio-site-1.jpg)
 
-# TRIIIO API
+# TRIIIO Backend API
 
-Production-ready in 90 seconds. No headaches, just clean code.
+API REST de gerenciamento de imóveis com integração externa, pronta para produção.
 
-*GRAB is a Go boilerplate that doesn't waste your time — highly tested, Docker-ready, fully documented, **AI-assistant optimized**, with everything you need. Built for developers who want to code with AI, not fight it.*
+*Backend robusto construído com Go, Clean Architecture, autenticação JWT, RBAC e sincronização inteligente com APIs externas.*
 
-[![Go Version](https://img.shields.io/badge/Go-1.24+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
-[![Release](https://img.shields.io/github/v/release/vahiiiid/go-rest-api-boilerplate?color=blue)](https://github.com/vahiiiid/go-rest-api-boilerplate/releases/tag/v2.0.0)
-[![codecov](https://codecov.io/gh/vahiiiid/go-rest-api-boilerplate/graph/badge.svg?branch=main)](https://codecov.io/gh/vahiiiid/go-rest-api-boilerplate)
-[![CI](https://github.com/vahiiiid/go-rest-api-boilerplate/workflows/CI/badge.svg)](https://github.com/vahiiiid/go-rest-api-boilerplate/actions)
+[![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Go Report Card](https://goreportcard.com/badge/github.com/vahiiiid/go-rest-api-boilerplate)](https://goreportcard.com/report/github.com/vahiiiid/go-rest-api-boilerplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Documentation](https://img.shields.io/badge/docs-read%20the%20docs-brightgreen?logo=readthedocs&logoColor=white)](https://vahiiiid.github.io/go-rest-api-docs/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![GitHub Stars](https://img.shields.io/github/stars/vahiiiid/go-rest-api-boilerplate?style=social)](https://github.com/vahiiiid/go-rest-api-boilerplate/stargazers)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-**[📖 Full Documentation](https://vahiiiid.github.io/go-rest-api-docs/)** • **[🚀 Quick Start](#-quick-start)** • **[✨ Live Demo](#-see-it-in-action)**
+**[🚀 Quick Start](#-quick-start)** • **[📖 Documentação](#-documentação)** • **[🏠 Funcionalidades](#-funcionalidades-principais)**
 
 </div>
 
 ---
 
-## 🤖 AI-Friendly Development
+## 🏠 Funcionalidades Principais
 
-GRAB is designed to work seamlessly with your favorite AI coding assistants:
+### Sistema de Gerenciamento de Imóveis
+- **CRUD Completo** de imóveis com relacionamentos complexos
+- **Importação Inteligente** da API externa (dev-api-backend.pi8.com.br)
+- **Sistema de Anexos** com gerenciamento de imagens
+- **Endereços Geolocalizados** com integração
+- **Empreendimentos e Plantas** associados aos imóveis
+- **Preços de Venda e Aluguel** com múltiplas condições
 
-[![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-optimized-7F52FF?logo=github&logoColor=white)](https://github.com/features/copilot)
-[![Cursor](https://img.shields.io/badge/Cursor-ready-7C3AED?logo=cursor&logoColor=white)](https://cursor.sh/)
-[![Windsurf](https://img.shields.io/badge/Windsurf-supported-00C7B7?logoColor=white)](https://codeium.com/windsurf)
-[![GoLand](https://img.shields.io/badge/GoLand-dual%20AI-087CFA?logo=goland&logoColor=white)](https://www.jetbrains.com/go/)
-[![AGENTS.md](https://img.shields.io/badge/AGENTS.md-compliant-orange?logo=openai&logoColor=white)](AGENTS.md)
+### Arquitetura e Segurança
+- **Clean Architecture** (Handler → Service → Repository)
+- **JWT Authentication** com refresh token rotation
+- **RBAC** (Role-Based Access Control)
+- **Rate Limiting** e proteção contra abusos
+- **Structured Logging** com rastreamento de requisições
+- **Validação de Dados** em todas as camadas
 
-**Out-of-the-box AI integration** with comprehensive guidelines for:
-- **GitHub Copilot** (VS Code, GoLand, Visual Studio)
-- **Cursor IDE** (with dedicated `.cursor/rules/`)
-- **Windsurf IDE** (with dedicated `.windsurf/rules/`)
-- **JetBrains AI** (via AGENTS.md standard)
-- Any AI assistant supporting AGENTS.md standard
-
-> **Note**: GoLand users get dual AI support through both GitHub Copilot (via `.github/copilot-instructions.md`) and JetBrains AI (via `AGENTS.md`). No IDE-specific configuration needed.
-
-AI assistants understand GRAB's Clean Architecture, Docker-first workflow, migration patterns, and testing conventions. Get intelligent code completions, accurate refactoring suggestions, and context-aware help.
-
-**📚 Learn More**: [AI-Friendly Development Guide](https://vahiiiid.github.io/go-rest-api-docs/AI_FRIENDLY/)
+### Infraestrutura
+- **Docker-First Development** com hot-reload em 2 segundos
+- **PostgreSQL 15** com migrações versionadas
+- **Health Checks** Kubernetes-ready
+- **Swagger/OpenAPI** para documentação interativa
+- **Graceful Shutdown** para deploys sem downtime
 
 ---
 
-## 🕒 Why Waste Days on Setup?
+## 🎯 Por Que TRIIIO Backend?
 
-You know the pain: Starting a new Go project means days of configuring Docker, wiring up authentication, setting up migrations, writing boilerplate code, and praying your hot-reload actually works.
-
-**GRAB changes that.**
+API REST completa para gestão de imóveis com sincronização externa, construída com as melhores práticas do ecossistema Go.
 
 ```bash
-make quick-start  # ← One command. 90 seconds. You're building features.
+make up          # Inicia containers com hot-reload
+make migrate-up  # Aplica migrações do banco
+make import-properties  # Importa imóveis da API externa
 ```
 
-**This is the real deal.** The production-grade boilerplate you wish you had from day one:
+**Recursos Implementados:**
 
-✅ **Clean Architecture** — Handler → Service → Repository (GO industry standard)  
-✅ **AI-Optimized Guidelines** — Built-in rules for GitHub Copilot, Cursor, Windsurf & AGENTS.md  
-✅ **Security & JWT Auth** — OAuth 2.0 BCP compliant with refresh token rotation, rate limiting, CORS  
-✅ **Role-Based Access Control** — Many-to-many RBAC with JWT integration and secure admin CLI  
-✅ **Database Migrations** — PostgreSQL with version control & rollback  
-✅ **Comprehensive Tests** — Unit + integration with CI/CD pipeline  
-✅ **Interactive Docs** — Auto-generated Swagger + Postman collection  
-✅ **Structured Logging** — JSON logs with request IDs and tracing  
-✅ **Standardized API Responses** — Consistent envelope format for all endpoints  
-✅ **Structured Error Handling** — Machine-readable error codes with details  
-✅ **Production Docker** — Multi-stage builds, health checks, optimized images  
-✅ **Environment-Aware** — Dev/staging/prod configs + Make automation & more  
-✅ **Graceful Shutdown** — Zero-downtime deployments with configurable timeouts  
-✅ **Hot-Reload (2 seconds!)** — Powered by Air, not magic  
+✅ **Clean Architecture** — Separação clara de responsabilidades  
+✅ **Importação Externa** — Sistema inteligente de sincronização com API externa  
+✅ **Mapeamento id_integracao** — Rastreamento de registros externos sem duplicação  
+✅ **JWT Authentication** — OAuth 2.0 compliant com refresh tokens  
+✅ **RBAC** — Controle de acesso baseado em roles  
+✅ **Migrações Versionadas** — PostgreSQL com controle total de schema  
+✅ **Swagger/OpenAPI** — Documentação interativa auto-gerada  
+✅ **Logging Estruturado** — JSON logs com request IDs  
+✅ **Error Handling** — Respostas padronizadas e machine-readable  
+✅ **Docker Production-Ready** — Multi-stage builds otimizados  
+✅ **Health Checks** — Kubernetes-ready probes  
+✅ **Hot-Reload** — Desenvolvimento ágil com Air (2 segundos!)  
 
-**And that's just scratching the surface.** Check the [full documentation](https://vahiiiid.github.io/go-rest-api-docs/) to see everything GRAB offers.
+### 🏆 Seguindo Padrões Go
 
-### 🏆 Built Following Go Standards
+Arquitetura baseada em **[official Go project layout](https://go.dev/doc/modules/layout)** e **[golang-standards/project-layout](https://github.com/golang-standards/project-layout)**.
 
-Not some random structure — follows **[official Go project layout](https://go.dev/doc/modules/layout)** + battle-tested community patterns from **[golang-standards/project-layout](https://github.com/golang-standards/project-layout)**. The same architecture used by Gin, GORM, and production Go services.
+### 🎯 Ideal Para
 
-### 🎯 Perfect For
-
-- 🚀 **Shipping Fast** — Launch MVPs and production APIs in days, not weeks  
-- 👥 **Team Projects** — Consistent standards everyone understands  
-- 🏗️ **Scaling Up** — Architecture that grows with your business
-- 📖 **Learning Go** — See how pros structure real-world applications
+- 🏢 **Gestão Imobiliária** — Sistema completo de cadastro e sincronização  
+- 🔄 **Integração de APIs** — Importação e sincronização de dados externos  
+- 📊 **Dados Relacionais Complexos** — Imóveis, endereços, preços, anexos  
+- 🚀 **Produção** — Pronto para deploy com Docker e Kubernetes
 
 ---
 
 ## 🚀 Quick Start
 
-Get your API running in **under 2 minutes**:
+Inicie a API em **menos de 2 minutos**:
 
-### Prerequisites
+### Pré-requisitos
 
-- [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/downloads)
 
-> **💡 Want to run without Docker?** See the [Manual Setup Guide](https://vahiiiid.github.io/go-rest-api-docs/SETUP/) in the documentation.
-
-### One-Command Setup ⚡
+### Setup Rápido ⚡
 
 ```bash
-git clone https://github.com/vahiiiid/go-rest-api-boilerplate.git
-cd go-rest-api-boilerplate
-make quick-start
+# 1. Clone o repositório
+git clone <seu-repositorio>
+cd triiio-backend
+
+# 2. Inicie os containers
+make up
+
+# 3. Aplique as migrações
+make migrate-up
+
+# 4. Verifique o status
+make migrate-status
 ```
 
-<div align="center">
-  <img src="https://vahiiiid.github.io/go-rest-api-docs/images/quick-start-light.gif" alt="Quick Start Demo" width="800">
-</div>
+**🎉 Pronto!** Sua API está rodando em:
 
-**🎉 Done!** Your API is now running at:
+- **API Base URL:** http://localhost:8080/api/v1
+- **Swagger UI:** http://localhost:8080/swagger/index.html
+- **Health Checks:** http://localhost:8080/health
+  - Liveness: http://localhost:8080/health/live
+  - Readiness: http://localhost:8080/health/ready
 
-- **API Base URL:** <http://localhost:8080/api/v1>
-- **Swagger UI:** <http://localhost:8080/swagger/index.html>
-- **Health Checks:** <http://localhost:8080/health> • [/health/live](http://localhost:8080/health/live) • [/health/ready](http://localhost:8080/health/ready)
+### Configuração Inicial
 
-**Create Admin User:**
+**Criar Usuário Admin:**
 
 ```bash
-make create-admin              # Interactive: prompts for email, name, password
-make promote-admin ID=1        # Promote existing user to admin by ID
+make create-admin              # Interativo: solicita email, nome, senha
+make promote-admin ID=1        # Promove usuário existente a admin
 ```
+
+**Importar Imóveis da API Externa:**
+
+```bash
+make import-properties         # Sincroniza com dev-api-backend.pi8.com.br
+```
+
+### Containers Docker
+
+O projeto utiliza os seguintes containers:
+- **triiio_app** - Aplicação Go com hot-reload
+- **triiio_db** - PostgreSQL 15
+
+### Banco de Dados
+
+- **Host:** localhost (ou triiio_db dentro do Docker)
+- **Porta:** 5432
+- **Database:** triiio_backend
+- **Usuário:** triiio_user
+- **Senha:** Configurada no arquivo `.env`
 
 ---
 
-## ✨ See It In Action
+## ✨ Testando a API
 
-### Interactive Swagger Documentation
+### Documentação Interativa com Swagger
 
-<div align="center">
-  <img src="https://vahiiiid.github.io/go-rest-api-docs/images/swagger-ui.png" alt="Swagger UI" width="700">
-</div>
+Abra [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html) para explorar e testar todos os endpoints de forma interativa.
 
-Open [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html) to explore and test all endpoints interactively.
+### Coleção do Postman
 
-### Or Use Postman
-
-<div align="center">
-  <img src="https://vahiiiid.github.io/go-rest-api-docs/images/postman-collection.png" alt="Postman Collection" width="700">
-</div>
-
-Import the pre-configured collection from `api/postman_collection.json` with example requests and tests.
-
-**🚀 Ready to Build?**
-
-- 📖 **[Development Guide](https://vahiiiid.github.io/go-rest-api-docs/DEVELOPMENT_GUIDE/)** — Learn how to add models, routes, and handlers
-- 💡 **[TODO List Tutorial](https://vahiiiid.github.io/go-rest-api-docs/TODO_EXAMPLE/)** — Complete step-by-step feature implementation from scratch
+Importe a coleção pré-configurada localizada em `api/postman_collection.json` com exemplos de requisições e testes prontos.
 
 ---
 
-## 💎 What Makes GRAB Different?
-
-### Not Just Features — A Complete Development Experience
+## 💎 Diferenciais do TRIIIO Backend
 
 Most boilerplates give you code. **GRAB gives you a professional development workflow.**
 
@@ -169,8 +173,6 @@ Most boilerplates give you code. **GRAB gives you a professional development wor
 - **Password security** — Bcrypt hashing with best-practice cost factor
 - **Rate limiting** — Token-bucket protection against abuse built-in
 
-👉 [Authentication Guide](https://vahiiiid.github.io/go-rest-api-docs/AUTHENTICATION/) | [Context Helpers](https://vahiiiid.github.io/go-rest-api-docs/CONTEXT_HELPERS/)
-
 #### 🔑 Role-Based Access Control (RBAC)
 
 - **Many-to-many architecture** — Flexible roles system with extensible permissions
@@ -179,8 +181,6 @@ Most boilerplates give you code. **GRAB gives you a professional development wor
 - **Protected endpoints** — Middleware-based access control (RequireRole, RequireAdmin)
 - **Three-endpoint pattern** — `/auth/me` (current user), `/users/:id` (specific), `/users` (admin list)
 - **Paginated user management** — Admin-only user listing with filtering and search
-
-👉 [RBAC Guide](https://vahiiiid.github.io/go-rest-api-docs/RBAC/)
 
 #### 🏠 Smart External API Integration
 
@@ -198,12 +198,17 @@ Most boilerplates give you code. **GRAB gives you a professional development wor
 docker exec triiio_app go run cmd/importimoveis/main.go
 # Result: 100 created, 0 updated, 0 failed
 
-# Re-import with updated data: Updates existing properties
-docker exec triiio_app go run cmd/importimoveis/main.go  
-# Result: 0 created, 100 updated, 0 failed
+# Re-import com dados atualizados: Atualiza propriedades existentes
+make import-properties
+# Resultado: 0 criados, 100 atualizados, 0 falhas
 ```
 
-👉 [Import Guide](internal/imoveis/IMPORT_GUIDE.md)
+**Como funciona:**
+- Primeira importação: Cria todos os imóveis (X criados, 0 atualizados)
+- Importações subsequentes: Atualiza dados existentes (0 criados, X atualizados)
+- Mapeamento por `id_integracao` evita duplicação
+- Sincroniza relacionamentos: empreendimentos, preços, endereços, anexos
+- Anexos são sincronizados com DELETE + INSERT para garantir consistência
 
 #### 🗄️ Database Setup That Doesn't Fight You
 
@@ -224,16 +229,12 @@ docker exec triiio_app go run cmd/importimoveis/main.go
 - **Transaction support** — BEGIN/COMMIT wrappers for data integrity
 - **Connection pooling** — Configured for performance out of the box
 
-👉 [Migrations Guide](https://vahiiiid.github.io/go-rest-api-docs/MIGRATIONS_GUIDE/)
-
 #### 🐳 Docker That Saves Your Sanity
 
 - **2-second hot-reload** — Powered by Air, actually works in Docker
 - **One command to rule them all** — `make quick-start` handles everything
 - **Development & production** — Separate optimized configs
 - **Multi-stage builds** — Tiny production images (~20MB)
-
-👉 [Docker Guide](https://vahiiiid.github.io/go-rest-api-docs/DOCKER/)
 
 #### 🏥 Production-Grade Health Checks
 
@@ -243,16 +244,10 @@ docker exec triiio_app go run cmd/importimoveis/main.go
 - **Zero-downtime deployments** — Smart readiness checks for load balancer integration
 - **Extensible architecture** — Easy to add custom health checkers (Redis, external APIs, etc.)
 
-👉 [Health Checks Guide](https://vahiiiid.github.io/go-rest-api-docs/HEALTH_CHECKS/)
+#### 📚 Documentação
 
-#### 📚 Documentation That Exists (And Helps!)
-
-- **Auto-generated Swagger** — Interactive API explorer at `/swagger/index.html`
-- **Full documentation site** — Not just README, real guides at [vahiiiid.github.io/go-rest-api-docs](https://vahiiiid.github.io/go-rest-api-docs/)
-- **Step-by-step tutorials** — Build a TODO app from scratch
-- **Postman collection** — Import and test immediately
-
-👉 [Full Documentation](https://vahiiiid.github.io/go-rest-api-docs/)
+- **Swagger Auto-gerado** — API explorer interativo em `/swagger/index.html`
+- **Coleção Postman** — Importe e teste imediatamente de `api/postman_collection.json`
 
 #### 🧪 Tests That Give You Confidence
 
@@ -261,16 +256,12 @@ docker exec triiio_app go run cmd/importimoveis/main.go
 - **Table-driven tests** — Go idiomatic testing patterns
 - **CI/CD ready** — GitHub Actions configured and working
 
-👉 [Testing Guide](https://vahiiiid.github.io/go-rest-api-docs/TESTING/)
-
 #### 📦 Standardized API Responses
 
 - **Consistent envelope format** — All responses wrapped in `{success, data, error, meta}` structure
 - **JSend-inspired design** — Industry best practice for API response formatting
 - **Type-safe responses** — Predictable structure for frontend integration
 - **Metadata support** — Pagination, timestamps, request IDs built-in
-
-👉 [API Response Format Guide](https://vahiiiid.github.io/go-rest-api-docs/API_RESPONSE_FORMAT/)
 
 #### ⚠️ Error Handling That Makes Sense
 
@@ -280,8 +271,6 @@ docker exec triiio_app go run cmd/importimoveis/main.go
 - **Centralized middleware** — Single error handler for consistent responses
 - **Rate limit errors** — Includes `retry_after` for proper backoff logic
 
-👉 [Error Handling Guide](https://vahiiiid.github.io/go-rest-api-docs/ERROR_HANDLING/)
-
 #### 🏗️ Architecture That Scales
 
 - **Clean layers** — Handler → Service → Repository (no shortcuts)
@@ -289,63 +278,89 @@ docker exec triiio_app go run cmd/importimoveis/main.go
 - **Domain-driven** — Organize by feature, not by layer
 - **Official Go layout** — Follows [golang-standards/project-layout](https://github.com/golang-standards/project-layout)
 
-👉 [Development Guide](https://vahiiiid.github.io/go-rest-api-docs/DEVELOPMENT_GUIDE/)
-
 ---
 
-## 🛠️ Development
+## 🛠️ Desenvolvimento
 
-### With Docker (Recommended)
+### Comandos Principais
 
-The easiest way to develop with hot-reload and zero setup:
-
+#### Docker
 ```bash
-make up        # Start containers with hot-reload
-make logs      # View logs
-make test      # Run all tests
-make lint      # Check code quality
-make lint-fix  # Auto-fix linting issues
-make down      # Stop containers
+make up              # Inicia containers com hot-reload
+make down            # Para containers
+make restart         # Reinicia containers
+make logs            # Visualiza logs do app
+make build           # Reconstrói containers
 ```
 
-**What you get:**
-
-- 🔥 **Hot-reload** — Code changes reflect in ~2 seconds (powered by Air)
-- 📦 **Volume mounts** — Edit code in your IDE, runs in container
-- 🗄️ **PostgreSQL** — Database on internal Docker network
-- 📚 **All tools pre-installed** — No Go installation needed on host
-
-### Database Migrations
-
-Production-grade migrations using golang-migrate:
-
+#### Migrações de Banco
 ```bash
-make migrate-create NAME=add_todos_table  # Create new migration
-make migrate-up                            # Apply all pending
-make migrate-down                          # Rollback last migration
-make migrate-status                        # Check current version
+make migrate-create NAME=nome_da_migration  # Cria nova migration
+make migrate-up                              # Aplica migrations pendentes
+make migrate-down                            # Rollback da última migration
+make migrate-down STEPS=3                    # Rollback de 3 migrations
+make migrate-status                          # Status atual
+make migrate-goto VERSION=20260113120000     # Vai para versão específica
 ```
 
-For long-running migrations:
-
+#### Testes e Qualidade
 ```bash
-go run cmd/migrate/main.go up --timeout=30m --lock-timeout=1m
+make test              # Executa todos os testes
+make test-coverage     # Gera relatório de cobertura
+make lint              # Verifica qualidade do código
+make lint-fix          # Corrige problemas automaticamente
 ```
 
-All environments use SQL migrations for consistency and safety.
-
-👉 **[Complete Migration Guide](https://vahiiiid.github.io/go-rest-api-docs/MIGRATIONS_GUIDE/)**
-
-### Without Docker
-
-Want to run natively? You'll need Go 1.24+ installed.
-
+#### Documentação
 ```bash
-make build-binary    # Build binary to bin/server
-make run-binary      # Build and run (requires PostgreSQL on localhost)
+make swag              # Gera documentação Swagger
 ```
 
-👉 **[Full Setup Guide](https://vahiiiid.github.io/go-rest-api-docs/SETUP/)** for native development
+#### Gerenciamento de Imóveis
+```bash
+make import-properties # Importa imóveis da API externa
+```
+
+#### Admin
+```bash
+make create-admin           # Cria novo usuário admin
+make promote-admin ID=123   # Promove usuário existente
+```
+
+**O que você tem:**
+
+- 🔥 **Hot-reload** — Mudanças refletem em ~2 segundos (Air)
+- 📦 **Volume mounts** — Edite no IDE, roda no container
+- 🗄️ **PostgreSQL** — Banco na rede Docker interna
+- 📚 **Ferramentas pré-instaladas** — Não precisa instalar Go no host
+
+### Estrutura de Migrações
+
+Migrações seguem o padrão `YYYYMMDDHHMMSS_acao_tabela`:
+
+**Exemplos:**
+- `20260113120000_create_enderecos_table`
+- `20260113120400_create_corretores_principais_table`
+- `20260113120900_create_imoveis_table`
+
+**Ordem de criação (importante devido a foreign keys):**
+1. Tabelas base (users, roles, organizacoes)
+2. Tabelas de relacionamento simples (enderecos, plantas)
+3. Anexos (sem FKs iniciais)
+4. Corretores principais
+5. Preços (venda/aluguel)
+6. Empreendimentos
+7. Imóveis (referencia todas as anteriores)
+8. Foreign keys adicionais em anexos
+
+### Sem Docker
+
+Precisa de Go 1.21+ instalado:
+
+```bash
+make build-binary    # Compila para bin/server
+make run-binary      # Compila e executa (requer PostgreSQL local)
+```
 
 ---
 
@@ -377,94 +392,145 @@ Ready for:
 - **Kubernetes** — Self-managed orchestration
 - **Any VPS** — Using Docker Compose
 
-👉 **[Deployment Guide](https://vahiiiid.github.io/go-rest-api-docs/SETUP/)** for step-by-step instructions
+---
+
+## 📖 Documentação
+
+### Swagger/OpenAPI Interativo
+
+Acesse a documentação interativa em:
+
+**http://localhost:8080/swagger/index.html**
+
+Teste todos os endpoints diretamente pelo navegador.
+
+### Postman Collection
+
+Importe a coleção pré-configurada de `api/postman_collection.json` com exemplos de requisições e testes.
+
+### Estrutura do Projeto
+
+```
+triiio-backend/
+├── cmd/                      # Entry points da aplicação
+│   ├── server/              # Servidor principal
+│   ├── migrate/             # CLI de migrações
+│   ├── createadmin/         # CLI de criação de admin
+│   └── importimoveis/       # Importador de imóveis
+├── internal/                # Código da aplicação
+│   ├── auth/                # Autenticação JWT
+│   ├── config/              # Configuração
+│   ├── contextutil/         # Helpers de contexto
+│   ├── db/                  # Setup do banco
+│   ├── errors/              # Tratamento de erros
+│   ├── health/              # Health checks
+│   ├── middleware/          # Middlewares HTTP
+│   ├── server/              # Setup do router
+│   ├── user/                # Domínio de usuários
+│   ├── imoveis/             # Domínio de imóveis
+│   └── sliders/             # Domínio de sliders
+├── migrations/              # Migrações SQL
+├── configs/                 # Arquivos de configuração
+├── api/                     # Documentação da API
+├── scripts/                 # Scripts auxiliares
+├── Dockerfile               # Imagem Docker
+├── docker-compose.yml       # Compose de desenvolvimento
+├── docker-compose.prod.yml  # Compose de produção
+├── Makefile                 # Comandos de desenvolvimento
+└── README.md                # Este arquivo
+```
+
+### Domínios Implementados
+
+#### Imóveis (`internal/imoveis/`)
+Sistema completo de gerenciamento de imóveis com:
+- CRUD de imóveis
+- Importação de API externa
+- Gerenciamento de anexos (imagens)
+- Endereços geolocalizados
+- Empreendimentos e plantas
+- Preços de venda e aluguel
+- Corretores principais
+- Características e pacotes
+
+#### Usuários (`internal/user/`)
+- Autenticação com JWT
+- Registro e login
+- Perfil de usuário
+- RBAC (controle de acesso)
+
+#### Sliders (`internal/sliders/`)
+- Gerenciamento de sliders
+- Itens de slider
+- Suporte a diferentes tipos
+
+### Clean Architecture
+
+Cada domínio segue a estrutura:
+
+```
+internal/<dominio>/
+├── model.go       # Modelos GORM
+├── dto.go         # Data Transfer Objects
+├── repository.go  # Camada de acesso a dados
+├── service.go     # Lógica de negócio
+├── handler.go     # Handlers HTTP (Gin)
+└── *_test.go      # Testes
+```
+
+**Fluxo:** Handler → Service → Repository → Database
 
 ---
 
-## 📖 Documentation
+## 🤝 Contribuindo
 
-### 🌐 Full Documentation Site
+Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md) para:
 
-**[📚 Read the Docs →](https://vahiiiid.github.io/go-rest-api-docs/)**
+- Guias de estilo de código
+- Processo de pull request
+- Requisitos de testes
+- Convenções de commit
 
-Complete guides covering everything:
+### Checklist Antes de Commitar
 
-- 🚀 [Getting Started](https://vahiiiid.github.io/go-rest-api-docs/SETUP/) — Installation and configuration
-- 💻 [Development Guide](https://vahiiiid.github.io/go-rest-api-docs/DEVELOPMENT_GUIDE/) — Building features
-- 💡 [TODO Tutorial](https://vahiiiid.github.io/go-rest-api-docs/TODO_EXAMPLE/) — Step-by-step implementation
-- 🐳 [Docker Guide](https://vahiiiid.github.io/go-rest-api-docs/DOCKER/) — Container workflows
-- 🗄️ [Migrations](https://vahiiiid.github.io/go-rest-api-docs/MIGRATIONS_GUIDE/) — Database schema management
-- 🏥 [Health Checks](https://vahiiiid.github.io/go-rest-api-docs/HEALTH_CHECKS/) — Kubernetes probes and monitoring
-- 🧪 [Testing](https://vahiiiid.github.io/go-rest-api-docs/TESTING/) — Writing and running tests
-- 📦 [API Response Format](https://vahiiiid.github.io/go-rest-api-docs/API_RESPONSE_FORMAT/) — Standardized response envelope
-- ⚠️ [Error Handling](https://vahiiiid.github.io/go-rest-api-docs/ERROR_HANDLING/) — Structured API errors
-- 📚 [Swagger](https://vahiiiid.github.io/go-rest-api-docs/SWAGGER/) — API documentation
-- ⚙️ [Configuration](https://vahiiiid.github.io/go-rest-api-docs/CONFIGURATION/) — Environment setup
-
-### 🤝 Contributing to Documentation
-
-Documentation lives in a [separate repository](https://github.com/vahiiiid/go-rest-api-docs). To contribute:
-
-1. Visit [github.com/vahiiiid/go-rest-api-docs](https://github.com/vahiiiid/go-rest-api-docs)
-2. Follow the contributing guidelines
-3. Submit pull requests for improvements
-
-For code contributions, see [CONTRIBUTING.md](CONTRIBUTING.md)
+```bash
+make lint-fix    # Corrige problemas automaticamente
+make lint        # Verifica qualidade do código
+make test        # Executa todos os testes
+make swag        # Atualiza documentação (se API mudou)
+```
 
 ---
 
-## 🤝 Contributing
+## � Tecnologias Utilizadas
 
-We ❤️ contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
-
-- Code style guidelines
-- Pull request process
-- Testing requirements
-- Commit conventions
-
-### Quick Start
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Make your changes
-4. Run tests and linter (`make lint-fix && make lint && make test`)
-5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-6. Push to the branch (`git push origin feat/amazing-feature`)
-7. Open a Pull Request
+- **[Go](https://go.dev/)** — Linguagem de programação
+- **[Gin](https://github.com/gin-gonic/gin)** — Framework web rápido
+- **[GORM](https://github.com/go-gorm/gorm)** — ORM friendly para desenvolvedores
+- **[PostgreSQL](https://www.postgresql.org/)** — Banco de dados relacional
+- **[golang-migrate](https://github.com/golang-migrate/migrate)** — Migrações de banco
+- **[Viper](https://github.com/spf13/viper)** — Gerenciamento de configuração
+- **[golang-jwt](https://github.com/golang-jwt/jwt)** — Implementação JWT
+- **[swaggo](https://github.com/swaggo/swag)** — Gerador de documentação Swagger
+- **[Air](https://github.com/air-verse/air)** — Hot-reload para desenvolvimento
+- **[Docker](https://www.docker.com/)** — Containerização
 
 ---
 
-## 🙏 Built With Amazing Tools
+## 📄 Licença
 
-- **[Gin](https://github.com/gin-gonic/gin)** — Fast HTTP web framework
-- **[GORM](https://github.com/go-gorm/gorm)** — Developer-friendly ORM
-- **[golang-migrate](https://github.com/golang-migrate/migrate)** — Database migration toolkit
-- **[Viper](https://github.com/spf13/viper)** — Configuration management
-- **[golang-jwt](https://github.com/golang-jwt/jwt)** — JWT implementation
-- **[swaggo](https://github.com/swaggo/swag)** — Swagger documentation generator
-- **[Air](https://github.com/air-verse/air)** — Hot-reload for development
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
-## 📄 License
+## 💬 Suporte
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 💬 Support & Community
-
-- 📖 [Read the Documentation](https://vahiiiid.github.io/go-rest-api-docs/)
-- 🐛 [Report Bugs](https://github.com/vahiiiid/go-rest-api-boilerplate/issues)
-- 💬 [Ask Questions](https://github.com/vahiiiid/go-rest-api-boilerplate/discussions)
-- ⭐ [Star this repo](https://github.com/vahiiiid/go-rest-api-boilerplate) if you find it helpful!
+Para dúvidas ou problemas, entre em contato com a equipe de desenvolvimento.
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for the Go community**
-
-[⭐ Star](https://github.com/vahiiiid/go-rest-api-boilerplate) • [📖 Docs](https://vahiiiid.github.io/go-rest-api-docs/) • [🐛 Issues](https://github.com/vahiiiid/go-rest-api-boilerplate/issues) • [💬 Discussions](https://github.com/vahiiiid/go-rest-api-boilerplate/discussions)
+**Desenvolvido com ❤️ para TRIIIO**
 
 </div>

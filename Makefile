@@ -1,7 +1,7 @@
 .PHONY: help quick-start up down restart logs build test test-coverage lint lint-fix swag migrate-create migrate-up migrate-down migrate-status migrate-goto migrate-force migrate-drop build-binary run-binary clean generate-jwt-secret check-env
 
 # Container name (from docker-compose.yml)
-CONTAINER_NAME := go_api_app
+CONTAINER_NAME := triiio_app
 
 # Check if container is running
 CONTAINER_RUNNING := $(shell docker ps --format '{{.Names}}' 2>/dev/null | grep -E '^$(CONTAINER_NAME)$$')

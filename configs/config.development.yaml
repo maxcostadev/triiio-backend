@@ -36,7 +36,7 @@ logging:
   level: "debug"
 
 externalapi:
-  baseurl: "https://dev-api-backend.pi8.com.br"
-  apikey: "TEST-1i80oFVLm9leqn57Xs238triioshZ6MusJpXVSrgP0ZUa2kt8O9"
-  integration_source: "test-triiio"
+  baseurl: ""                       # Override with EXTERNAL_API_BASEURL
+  apikey: ""                        # Override with EXTERNAL_API_KEY
+  integration_source: ""            # Override with EXTERNAL_API_INTEGRATION_SOURCE
   timeout_seconds: 30

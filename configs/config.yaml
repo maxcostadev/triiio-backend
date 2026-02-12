@@ -58,7 +58,7 @@ health:
   database_check_enabled: true      # Override with HEALTH_DATABASE_CHECK_ENABLED
 
 externalapi:
-  baseurl: "https://dev-api-backend.pi8.com.br"  # Override with EXTERNAL_API_BASEURL
+  baseurl: ""                       # Override with EXTERNAL_API_BASEURL (required)
   apikey: ""                        # Override with EXTERNAL_API_KEY (required)
   integration_source: ""            # Override with EXTERNAL_API_INTEGRATION_SOURCE (required)
   timeout_seconds: 30               # Override with EXTERNAL_API_TIMEOUT_SECONDS
