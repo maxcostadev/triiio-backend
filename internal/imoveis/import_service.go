@@ -115,7 +115,11 @@ func (is *importService) ImportPropertyDetails(ctx context.Context, externalID u
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch property details: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Failed to close response body: %v", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("external API returned status %d", resp.StatusCode)
@@ -292,7 +296,7 @@ func (is *importService) upsertEndereco(ctx context.Context, imovelID uint, extE
 }
 
 // upsertEmpreendimento creates or updates an enterprise and its nested relationships
-func (is *importService) upsertEmpreendimento(ctx context.Context, ext *ExternalEmpreendimento) (uint, error) {
+func (is *importService) upsertEmpreendimento(_ context.Context, ext *ExternalEmpreendimento) (uint, error) {
 	if ext == nil {
 		return 0, fmt.Errorf("empreendimento is nil")
 	}
@@ -358,7 +362,7 @@ func (is *importService) upsertEmpreendimento(ctx context.Context, ext *External
 }
 
 // upsertPrecoVenda creates or updates a selling price record
-func (is *importService) upsertPrecoVenda(ctx context.Context, ext *ExternalPrecoVenda) (uint, error) {
+func (is *importService) upsertPrecoVenda(_ context.Context, ext *ExternalPrecoVenda) (uint, error) {
 	if ext == nil {
 		return 0, fmt.Errorf("preco venda is nil")
 	}
@@ -412,7 +416,7 @@ func (is *importService) upsertPrecoVenda(ctx context.Context, ext *ExternalPrec
 }
 
 // upsertPrecoAluguel creates or updates a rental price record
-func (is *importService) upsertPrecoAluguel(ctx context.Context, ext *ExternalPrecoAluguel) (uint, error) {
+func (is *importService) upsertPrecoAluguel(_ context.Context, ext *ExternalPrecoAluguel) (uint, error) {
 	if ext == nil {
 		return 0, fmt.Errorf("preco aluguel is nil")
 	}
@@ -477,7 +481,11 @@ func (is *importService) fetchPublishedList(ctx context.Context, url string) ([]
 	if err != nil {
 		return nil, fmt.Errorf("failed to fetch properties: %w", err)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Printf("Failed to close response body: %v", err)
+		}
+	}()
 
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("external API returned status %d", resp.StatusCode)
@@ -542,7 +550,7 @@ func (is *importService) transformExternalToCreateRequest(ext *ExternalDetailedI
 }
 
 // upsertOrganizacao creates or updates organizacao and returns its ID
-func (is *importService) upsertOrganizacao(ctx context.Context, extOrg *ExternalOrganizacao) (uint, error) {
+func (is *importService) upsertOrganizacao(_ context.Context, extOrg *ExternalOrganizacao) (uint, error) {
 	if extOrg == nil || extOrg.Nome == "" {
 		return 0, fmt.Errorf("organizacao is empty")
 	}
@@ -639,52 +647,12 @@ func (is *importService) upsertCorretorPrincipal(ctx context.Context, extCorreto
 		OrganizacaoID:  organizacaoID,
 	}
 
-	// Don't set FotoID - it will be NULL by default (uint zero value causes FK violation)
+	// Don't set FotoID -it will be NULL by default (uint zero value causes FK violation)
 	if err := is.service.(*service).repo.(*repository).db.Omit("FotoID").Create(&corretor).Error; err != nil {
 		return 0, fmt.Errorf("failed to create corretor principal: %w", err)
 	}
 
 	return corretor.ID, nil
-}
-
-// addAnexosFromImages adds image attachments to a property
-func (is *importService) addAnexosFromImages(ctx context.Context, imovelID uint, imageURLs []string) error {
-	// Get existing anexos for this property
-	existingAnexos, err := is.service.GetAnexos(ctx, imovelID)
-	if err != nil {
-		// If error getting existing anexos, log but continue with creation
-		fmt.Printf("Warning: Failed to get existing anexos: %v\n", err)
-	}
-
-	// Build map of existing URLs for quick lookup
-	existingURLs := make(map[string]bool)
-	for _, anexo := range existingAnexos {
-		existingURLs[anexo.URL] = true
-	}
-
-	// Only create anexos that don't already exist
-	for i, imageURL := range imageURLs {
-		// Skip if this URL already exists
-		if existingURLs[imageURL] {
-			continue
-		}
-
-		anexo := &Anexo{
-			Nome:          fmt.Sprintf("Image %d", i+1),
-			URL:           imageURL,
-			Tipo:          "image",
-			Image:         true,
-			Video:         false,
-			IsExternalURL: true,
-			CanPublish:    true,
-		}
-
-		if err := is.service.AddAnexo(ctx, imovelID, anexo); err != nil {
-			return fmt.Errorf("failed to add image %d: %w", i+1, err)
-		}
-	}
-
-	return nil
 }
 
 // syncAnexosFromImages synchronizes image attachments for a property

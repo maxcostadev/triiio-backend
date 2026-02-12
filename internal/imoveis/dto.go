@@ -9,7 +9,7 @@ type CreateImovelRequest struct {
 	Codigo        string  `json:"codigo" binding:"required,min=1,max=50"`
 	Tipo          string  `json:"tipo" binding:"required,oneof=APARTAMENTO CASA COMERCIAL SALA_COMERCIAL TERRENO GALPAO"`
 	Objetivo      string  `json:"objetivo" binding:"required,oneof=VENDER ALUGAR"`
-	Finalidade    string  `json:"finalidade" binding:"required,oneof=RESIDENCIAL COMERCIAL MISTO"`
+	Finalidade    string  `json:"finalidade" binding:"required,oneof=RESIDENTIAL COMERCIAL MISTO"`
 	Descricao     string  `json:"descricao" binding:"required,min=10,max=5000"`
 	Metragem      float64 `json:"metragem" binding:"required,gt=0"`
 	NumQuartos    int     `json:"numQuartos" binding:"min=0"`
@@ -39,7 +39,7 @@ type UpdateImovelRequest struct {
 	Codigo        string   `json:"codigo" binding:"omitempty,min=1,max=50"`
 	Tipo          string   `json:"tipo" binding:"omitempty,oneof=APARTAMENTO CASA COMERCIAL SALA_COMERCIAL TERRENO GALPAO"`
 	Objetivo      string   `json:"objetivo" binding:"omitempty,oneof=VENDER ALUGAR"`
-	Finalidade    string   `json:"finalidade" binding:"omitempty,oneof=RESIDENCIAL COMERCIAL MISTO"`
+	Finalidade    string   `json:"finalidade" binding:"omitempty,oneof=RESIDENTIAL COMERCIAL MISTO"`
 	Descricao     string   `json:"descricao" binding:"omitempty,min=10,max=5000"`
 	Metragem      *float64 `json:"metragem" binding:"omitempty,gt=0"`
 	NumQuartos    *int     `json:"numQuartos" binding:"omitempty,min=0"`
@@ -165,7 +165,7 @@ type CreateEmpreendimentoRequest struct {
 	Descricao       string `json:"descricao" binding:"required,min=10,max=5000"`
 	DataEntrega     string `json:"data_entrega" binding:"omitempty,datetime=2006-01-02"`
 	EtapaLancamento string `json:"etapa_lancamento" binding:"omitempty,oneof=LANCAMENTO PRE_LANCAMENTO PRONTO EM_CONSTRUCAO"`
-	Finalidade      string `json:"finalidade" binding:"omitempty,oneof=RESIDENCIAL COMERCIAL MISTO"`
+	Finalidade      string `json:"finalidade" binding:"omitempty,oneof=RESIDENTIAL COMERCIAL MISTO"`
 	Tipo            string `json:"tipo" binding:"omitempty,oneof=APARTAMENTO CASA COMERCIAL SALA_COMERCIAL TERRENO GALPAO"`
 	Status          string `json:"status" binding:"omitempty,oneof=PUBLICADO EM_EDICAO ARQUIVADO"`
 	Localizacao     string `json:"localizacao" binding:"omitempty,max=255"`
@@ -178,7 +178,7 @@ type UpdateEmpreendimentoRequest struct {
 	Descricao       string `json:"descricao" binding:"omitempty,min=10,max=5000"`
 	DataEntrega     string `json:"data_entrega" binding:"omitempty,datetime=2006-01-02"`
 	EtapaLancamento string `json:"etapa_lancamento" binding:"omitempty,oneof=LANCAMENTO PRE_LANCAMENTO PRONTO EM_CONSTRUCAO"`
-	Finalidade      string `json:"finalidade" binding:"omitempty,oneof=RESIDENCIAL COMERCIAL MISTO"`
+	Finalidade      string `json:"finalidade" binding:"omitempty,oneof=RESIDENTIAL COMERCIAL MISTO"`
 	Tipo            string `json:"tipo" binding:"omitempty,oneof=APARTAMENTO CASA COMERCIAL SALA_COMERCIAL TERRENO GALPAO"`
 	Status          string `json:"status" binding:"omitempty,oneof=PUBLICADO EM_EDICAO ARQUIVADO"`
 	Localizacao     string `json:"localizacao" binding:"omitempty,max=255"`
@@ -280,7 +280,7 @@ type ImovelListQuery struct {
 	Codigo           string  `form:"codigo" binding:"omitempty,max=50"`
 	Tipo             string  `form:"tipo" binding:"omitempty,oneof=APARTAMENTO CASA COMERCIAL SALA_COMERCIAL TERRENO GALPAO"`
 	Objetivo         string  `form:"objetivo" binding:"omitempty,oneof=VENDER ALUGAR"`
-	Finalidade       string  `form:"finalidade" binding:"omitempty,oneof=RESIDENCIAL COMERCIAL MISTO"`
+	Finalidade       string  `form:"finalidade" binding:"omitempty,oneof=RESIDENTIAL COMERCIAL MISTO"`
 	Status           string  `form:"status" binding:"omitempty,oneof=PUBLICADO EM_EDICAO ARQUIVADO"`
 	Published        *bool   `form:"published" binding:"omitempty"`
 	MinPreco         float64 `form:"min_preco" binding:"omitempty,min=0"`

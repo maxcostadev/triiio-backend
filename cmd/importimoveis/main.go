@@ -38,7 +38,11 @@ func main() {
 		logger.Error("Failed to get database connection", "error", err)
 		os.Exit(1)
 	}
-	defer sqlDB.Close()
+	defer func() {
+		if err := sqlDB.Close(); err != nil {
+			logger.Error("Failed to close database connection", "error", err)
+		}
+	}()
 
 	logger.Info("Connected to database successfully")
 

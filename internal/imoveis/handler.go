@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
 	apiErrors "github.com/vahiiiid/go-rest-api-boilerplate/internal/errors"
 )
 
@@ -177,7 +178,7 @@ func (h *Handler) DeleteImovel(c *gin.Context) {
 // @Param codigo query string false "Property code (partial match)"
 // @Param tipo query string false "Property type (APARTAMENTO, CASA, COMERCIAL, SALA_COMERCIAL, TERRENO, GALPAO)"
 // @Param objetivo query string false "Property objective (VENDER, ALUGAR)"
-// @Param finalidade query string false "Property purpose (RESIDENCIAL, COMERCIAL, MISTO)"
+// @Param finalidade query string false "Property purpose (RESIDENTIAL, COMERCIAL, MISTO)"
 // @Param status query string false "Property status (PUBLICADO, EM_EDICAO, ARQUIVADO)"
 // @Param published query bool false "Published status"
 // @Param min_preco query number false "Minimum price"

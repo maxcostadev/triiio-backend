@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
 	apiErrors "github.com/vahiiiid/go-rest-api-boilerplate/internal/errors"
 )
 

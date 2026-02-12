@@ -187,7 +187,7 @@ type Imovel struct {
 	SeqCodigo     int    `json:"seqCodigo"`
 	Tipo          string `json:"tipo"`       // APARTAMENTO, CASA, COMERCIAL, etc
 	Objetivo      string `json:"objetivo"`   // VENDER, ALUGAR
-	Finalidade    string `json:"finalidade"` // RESIDENCIAL, COMERCIAL
+	Finalidade    string `json:"finalidade"` // RESIDENTIAL, COMERCIAL
 	Descricao     string `gorm:"type:text" json:"descricao"`
 
 	// Property Details

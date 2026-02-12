@@ -4,9 +4,7 @@
 
 # TRIIIO Backend API
 
-API REST de gerenciamento de imóveis com integração externa, pronta para produção.
-
-*Backend robusto construído com Go, Clean Architecture, autenticação JWT, RBAC e sincronização inteligente com APIs externas.*
+API REST de gerenciamento de imóveis com integração externa.
 
 [![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white)](https://go.dev/)
 [![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
@@ -23,7 +21,7 @@ API REST de gerenciamento de imóveis com integração externa, pronta para prod
 
 ### Sistema de Gerenciamento de Imóveis
 - **CRUD Completo** de imóveis com relacionamentos complexos
-- **Importação Inteligente** da API externa (dev-api-backend.pi8.com.br)
+- **Importação Inteligente** da API externa
 - **Sistema de Anexos** com gerenciamento de imagens
 - **Endereços Geolocalizados** com integração
 - **Empreendimentos e Plantas** associados aos imóveis
@@ -46,10 +44,6 @@ API REST de gerenciamento de imóveis com integração externa, pronta para prod
 
 ---
 
-## 🎯 Por Que TRIIIO Backend?
-
-API REST completa para gestão de imóveis com sincronização externa, construída com as melhores práticas do ecossistema Go.
-
 ```bash
 make up          # Inicia containers com hot-reload
 make migrate-up  # Aplica migrações do banco
@@ -71,22 +65,11 @@ make import-properties  # Importa imóveis da API externa
 ✅ **Health Checks** — Kubernetes-ready probes  
 ✅ **Hot-Reload** — Desenvolvimento ágil com Air (2 segundos!)  
 
-### 🏆 Seguindo Padrões Go
-
-Arquitetura baseada em **[official Go project layout](https://go.dev/doc/modules/layout)** e **[golang-standards/project-layout](https://github.com/golang-standards/project-layout)**.
-
-### 🎯 Ideal Para
-
-- 🏢 **Gestão Imobiliária** — Sistema completo de cadastro e sincronização  
-- 🔄 **Integração de APIs** — Importação e sincronização de dados externos  
-- 📊 **Dados Relacionais Complexos** — Imóveis, endereços, preços, anexos  
-- 🚀 **Produção** — Pronto para deploy com Docker e Kubernetes
-
 ---
 
 ## 🚀 Quick Start
 
-Inicie a API em **menos de 2 minutos**:
+Inicie a API:
 
 ### Pré-requisitos
 
@@ -97,7 +80,7 @@ Inicie a API em **menos de 2 minutos**:
 
 ```bash
 # 1. Clone o repositório
-git clone <seu-repositorio>
+git clone https://github.com/maxcostadev/triiio-backend.git
 cd triiio-backend
 
 # 2. Inicie os containers
@@ -160,10 +143,6 @@ Abra [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/in
 Importe a coleção pré-configurada localizada em `api/postman_collection.json` com exemplos de requisições e testes prontos.
 
 ---
-
-## 💎 Diferenciais do TRIIIO Backend
-
-Most boilerplates give you code. **GRAB gives you a professional development workflow.**
 
 #### 🔐 Authentication That Actually Works
 
@@ -327,13 +306,6 @@ make create-admin           # Cria novo usuário admin
 make promote-admin ID=123   # Promove usuário existente
 ```
 
-**O que você tem:**
-
-- 🔥 **Hot-reload** — Mudanças refletem em ~2 segundos (Air)
-- 📦 **Volume mounts** — Edite no IDE, roda no container
-- 🗄️ **PostgreSQL** — Banco na rede Docker interna
-- 📚 **Ferramentas pré-instaladas** — Não precisa instalar Go no host
-
 ### Estrutura de Migrações
 
 Migrações seguem o padrão `YYYYMMDDHHMMSS_acao_tabela`:
@@ -393,103 +365,6 @@ Ready for:
 - **Any VPS** — Using Docker Compose
 
 ---
-
-## 📖 Documentação
-
-### Swagger/OpenAPI Interativo
-
-Acesse a documentação interativa em:
-
-**http://localhost:8080/swagger/index.html**
-
-Teste todos os endpoints diretamente pelo navegador.
-
-### Postman Collection
-
-Importe a coleção pré-configurada de `api/postman_collection.json` com exemplos de requisições e testes.
-
-### Estrutura do Projeto
-
-```
-triiio-backend/
-├── cmd/                      # Entry points da aplicação
-│   ├── server/              # Servidor principal
-│   ├── migrate/             # CLI de migrações
-│   ├── createadmin/         # CLI de criação de admin
-│   └── importimoveis/       # Importador de imóveis
-├── internal/                # Código da aplicação
-│   ├── auth/                # Autenticação JWT
-│   ├── config/              # Configuração
-│   ├── contextutil/         # Helpers de contexto
-│   ├── db/                  # Setup do banco
-│   ├── errors/              # Tratamento de erros
-│   ├── health/              # Health checks
-│   ├── middleware/          # Middlewares HTTP
-│   ├── server/              # Setup do router
-│   ├── user/                # Domínio de usuários
-│   ├── imoveis/             # Domínio de imóveis
-│   └── sliders/             # Domínio de sliders
-├── migrations/              # Migrações SQL
-├── configs/                 # Arquivos de configuração
-├── api/                     # Documentação da API
-├── scripts/                 # Scripts auxiliares
-├── Dockerfile               # Imagem Docker
-├── docker-compose.yml       # Compose de desenvolvimento
-├── docker-compose.prod.yml  # Compose de produção
-├── Makefile                 # Comandos de desenvolvimento
-└── README.md                # Este arquivo
-```
-
-### Domínios Implementados
-
-#### Imóveis (`internal/imoveis/`)
-Sistema completo de gerenciamento de imóveis com:
-- CRUD de imóveis
-- Importação de API externa
-- Gerenciamento de anexos (imagens)
-- Endereços geolocalizados
-- Empreendimentos e plantas
-- Preços de venda e aluguel
-- Corretores principais
-- Características e pacotes
-
-#### Usuários (`internal/user/`)
-- Autenticação com JWT
-- Registro e login
-- Perfil de usuário
-- RBAC (controle de acesso)
-
-#### Sliders (`internal/sliders/`)
-- Gerenciamento de sliders
-- Itens de slider
-- Suporte a diferentes tipos
-
-### Clean Architecture
-
-Cada domínio segue a estrutura:
-
-```
-internal/<dominio>/
-├── model.go       # Modelos GORM
-├── dto.go         # Data Transfer Objects
-├── repository.go  # Camada de acesso a dados
-├── service.go     # Lógica de negócio
-├── handler.go     # Handlers HTTP (Gin)
-└── *_test.go      # Testes
-```
-
-**Fluxo:** Handler → Service → Repository → Database
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Veja [CONTRIBUTING.md](CONTRIBUTING.md) para:
-
-- Guias de estilo de código
-- Processo de pull request
-- Requisitos de testes
-- Convenções de commit
 
 ### Checklist Antes de Commitar
 

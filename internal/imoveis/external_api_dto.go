@@ -19,7 +19,7 @@ type ExternalImovel struct {
 	Titulo            string                `json:"titulo"`
 	Tipo              string                `json:"tipo"`       // APARTAMENTO, CASA, COMERCIAL, etc
 	Objetivo          string                `json:"objetivo"`   // VENDER, ALUGAR
-	Finalidade        string                `json:"finalidade"` // RESIDENCIAL, COMERCIAL
+	Finalidade        string                `json:"finalidade"` // RESIDENTIAL, COMERCIAL
 	Metragem          float64               `json:"metragem"`
 	NumQuartos        int                   `json:"numQuartos"`
 	NumSuites         int                   `json:"numSuites"`

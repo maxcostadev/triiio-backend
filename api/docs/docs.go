@@ -1034,7 +1034,7 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "description": "Property purpose (RESIDENCIAL, COMERCIAL, MISTO)",
+                        "description": "Property purpose (RESIDENTIAL, COMERCIAL, MISTO)",
                         "name": "finalidade",
                         "in": "query"
                     },
@@ -3738,7 +3738,7 @@ const docTemplate = `{
                 "finalidade": {
                     "type": "string",
                     "enum": [
-                        "RESIDENCIAL",
+                        "RESIDENTIAL",
                         "COMERCIAL",
                         "MISTO"
                     ]
@@ -4266,7 +4266,7 @@ const docTemplate = `{
                 "finalidade": {
                     "type": "string",
                     "enum": [
-                        "RESIDENCIAL",
+                        "RESIDENTIAL",
                         "COMERCIAL",
                         "MISTO"
                     ]

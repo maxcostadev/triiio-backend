@@ -9,7 +9,7 @@
 # ===========================================
 
 app:
-  name: "GRAB API (development)"
+  name: "TRIIIO BACKEND API"
   environment: "development"
   debug: true                       # Enable debug mode in development
 

@@ -320,7 +320,7 @@ definitions:
         type: integer
       finalidade:
         enum:
-        - RESIDENCIAL
+        - RESIDENTIAL
         - COMERCIAL
         - MISTO
         type: string
@@ -684,7 +684,7 @@ definitions:
         type: integer
       finalidade:
         enum:
-        - RESIDENCIAL
+        - RESIDENTIAL
         - COMERCIAL
         - MISTO
         type: string
@@ -1538,7 +1538,7 @@ paths:
         in: query
         name: objetivo
         type: string
-      - description: Property purpose (RESIDENCIAL, COMERCIAL, MISTO)
+      - description: Property purpose (RESIDENTIAL, COMERCIAL, MISTO)
         in: query
         name: finalidade
         type: string

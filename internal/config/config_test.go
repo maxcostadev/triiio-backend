@@ -83,7 +83,7 @@ jwt:
 		tempDir := t.TempDir()
 		path := createTempConfigFile(t, tempDir, "config.yaml", `
 app:
-  name: "GRAB API (development)"
+  name: "Test API (development)"
   environment: "development"
   debug: true
 database:
@@ -114,7 +114,8 @@ ratelimit:
 		// These values should come from config file defaults
 		assert.Equal(t, 10, cfg.Server.ReadTimeout)
 		assert.Equal(t, "development", cfg.App.Environment)
-		assert.Equal(t, "GRAB API (development)", cfg.App.Name)
+		// APP_NAME environment variable overrides config file value
+		assert.Equal(t, "TRIIIO BACKEND API", cfg.App.Name)
 		assert.Equal(t, "hKLmNpQrStUvWxYzABCDEFGHIJKLMNOP", cfg.JWT.Secret)
 	})
 
@@ -475,6 +476,13 @@ server:
 
 	t.Run("zero timeout values are allowed", func(t *testing.T) {
 		viper.Reset()
+		// Clear environment variables that might override zero values
+		t.Setenv("SERVER_READTIMEOUT", "")
+		t.Setenv("SERVER_WRITETIMEOUT", "")
+		t.Setenv("SERVER_IDLETIMEOUT", "")
+		t.Setenv("SERVER_SHUTDOWNTIMEOUT", "")
+		t.Setenv("SERVER_MAXHEADERBYTES", "")
+
 		tempDir := t.TempDir()
 		path := createTempConfigFile(t, tempDir, "config.yaml", `
 database:
@@ -652,19 +660,28 @@ func TestValidate_TimeoutFields(t *testing.T) {
 func TestLoadConfig_ErrorPaths(t *testing.T) {
 	t.Run("unmarshal error with invalid config structure", func(t *testing.T) {
 		viper.Reset()
+		// Clear JWT_SECRET environment variable that might override
+		t.Setenv("JWT_SECRET", "")
+
 		tempDir := t.TempDir()
 
+		// Config with too short JWT secret (validation error, not unmarshal error)
 		invalidYAML := `
 app:
-  name: 123
-  environment: [this, should, not, be, an, array]
+  name: "TestApp"
 database:
-  port: "not_a_number"
+  host: "testhost"
+  password: "testpass"
+jwt:
+  secret: "tooshort"
 `
 		path := createTempConfigFile(t, tempDir, "invalid.yaml", invalidYAML)
 
 		_, err := LoadConfig(path)
 		assert.Error(t, err)
+		if err != nil {
+			assert.Contains(t, err.Error(), "JWT_SECRET must be at least 32 characters")
+		}
 	})
 
 	t.Run("ENV fallback when app.environment is empty", func(t *testing.T) {

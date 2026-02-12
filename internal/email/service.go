@@ -7,11 +7,13 @@ import (
 	"embed"
 	"fmt"
 	"html/template"
+	"log/slog"
 	"time"
+
+	mail "github.com/wneessen/go-mail"
 
 	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
 	"github.com/vahiiiid/go-rest-api-boilerplate/internal/errors"
-	mail "github.com/wneessen/go-mail"
 )
 
 //go:embed templates/*.html
@@ -77,7 +79,11 @@ func (s *service) SendEmail(ctx context.Context, req *SendEmailRequest) (*EmailR
 	if err != nil {
 		return nil, errors.InternalServerError(fmt.Errorf("failed to create SMTP client: %w", err))
 	}
-	defer client.Close()
+	defer func() {
+		if err := client.Close(); err != nil {
+			slog.Error("Failed to close SMTP client", "error", err)
+		}
+	}()
 
 	// Cria a mensagem
 	msg := mail.NewMsg()
